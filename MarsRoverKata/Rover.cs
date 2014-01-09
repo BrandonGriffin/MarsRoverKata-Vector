@@ -8,9 +8,9 @@ namespace MarsRoverKata
 {
     public class Rover
     {
-        public static object Grid()
+        public static Int32[,] Grid()
         {
-            throw new NotImplementedException();
+            return new Int32[0,0];
         }
     }
 }
