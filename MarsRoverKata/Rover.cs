@@ -8,9 +8,9 @@ namespace MarsRoverKata
 {
     public class Rover
     {
-        public static Int32[,] Grid()
+        public static Int32[,] Grid(Int32 rowsAndColums)
         {
-            return new Int32[0,0];
+            return new Int32[rowsAndColums,rowsAndColums];
         }
     }
 }
