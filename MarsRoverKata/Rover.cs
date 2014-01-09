@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace MarsRoverKata
 {
-    public class Class1
+    public class Rover
     {
+        public static object Grid()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
