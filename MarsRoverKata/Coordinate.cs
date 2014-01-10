@@ -11,6 +11,12 @@ namespace MarsRoverKata
         public Int32 x { get; private set; }
         public Int32 y { get; private set; }
 
+        public Coordinate()
+        {
+            this.x = 0;
+            this.y = 0;
+        }
+
         public Coordinate(Int32 x, Int32 y)
         {
             this.x = x;

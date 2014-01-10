@@ -43,8 +43,6 @@ namespace MarsRoverKata.Tests
         {
             mars.Map(3);
             var actual = rover.Position();
-            var coordinate = new Coordinate(0, 0);
-            var expected = coordinate.ToString();
 
             Assert.That(actual, Is.EqualTo("(0, 0)"));
         }
@@ -54,6 +52,16 @@ namespace MarsRoverKata.Tests
         {
             var actual = rover.Direction();
             var expected = "N";
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void RoverTakesASeriesfCommandsToMove()
+        {
+            rover.Move("ff");
+            var actual = rover.Position();
+            var expected = "(2, 0)";
 
             Assert.That(actual, Is.EqualTo(expected));
         }

@@ -8,17 +8,23 @@ namespace MarsRoverKata
 {
     public class Rover
     {
+        enum Directions { N, E, S, W };
 
         public String Position()
         {
             var position = new Coordinate(0, 0);
-
             return position.ToString();
         }
 
         public String Direction()
         {
-            return "N";
+            var direction = Directions.N;
+            return direction.ToString();
+        }
+
+        public void Move(string p)
+        {
+            throw new NotImplementedException();
         }
     }
 }
