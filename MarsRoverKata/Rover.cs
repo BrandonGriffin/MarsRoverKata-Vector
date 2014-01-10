@@ -8,9 +8,17 @@ namespace MarsRoverKata
 {
     public class Rover
     {
-        public static Int32[,] Grid(Int32 rowsAndColums)
+
+        public String Position()
         {
-            return new Int32[rowsAndColums,rowsAndColums];
+            var position = new Coordinate(0, 0);
+
+            return position.ToString();
+        }
+
+        public object Direction()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Coordinate.cs" />
+    <Compile Include="Planet.cs" />
     <Compile Include="Rover.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
