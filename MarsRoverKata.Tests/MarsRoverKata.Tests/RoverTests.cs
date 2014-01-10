@@ -11,59 +11,23 @@ namespace MarsRoverKata.Tests
     public class RoverTests
     {
         private Rover rover;
-        private Planet mars;
 
         [SetUp]
         public void Setup()
         {
-            rover = new Rover();
-            mars = new Planet();
+            rover = new Rover(new Coordinate(1, 1), Direction.North);
         }
 
         [Test]
-        public void RoverReturnsTheGridItIsLocatedOn()
+        public void RoversCurrentPositionIsSetToStartingPosition()
         {
-            var actual = mars.Map(0);
-            var expected = new Int32[0,0];
-            
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(1, 1)));
         }
 
         [Test]
-        public void TheGridCanBeOfASpecifiedSize()
+        public void RoversDirectionIsSet()
         {
-            var actual = mars.Map(3);
-            var expected = new Int32[3,3];
-
-            Assert.That(actual, Is.EqualTo(expected));
-        }
-
-        [Test]
-        public void RoverReturnsItsStartingPositionOnTheGrid()
-        {
-            mars.Map(3);
-            var actual = rover.Position();
-
-            Assert.That(actual, Is.EqualTo("(0, 0)"));
-        }
-
-        [Test]
-        public void RoverReturnsItsDirection()
-        {
-            var actual = rover.Direction();
-            var expected = "N";
-
-            Assert.That(actual, Is.EqualTo(expected));
-        }
-
-        [Test]
-        public void RoverTakesASeriesfCommandsToMove()
-        {
-            rover.Move("ff");
-            var actual = rover.Position();
-            var expected = "(2, 0)";
-
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(rover.Direction, Is.EqualTo(Direction.North));
         }
     }
 }

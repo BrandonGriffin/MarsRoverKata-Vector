@@ -8,9 +8,13 @@ namespace MarsRoverKata
 {
     public class Planet
     {
-        public Int32[,] Map(Int32 rowsAndColums)
+        public Int32 NumberOfRows;
+        public Int32 NumberOfColumns;
+
+        public Planet(Int32 rows, Int32 columns)
         {
-            return new Int32[rowsAndColums, rowsAndColums];
+            NumberOfRows = rows;
+            NumberOfColumns = columns;
         }
     }
 }

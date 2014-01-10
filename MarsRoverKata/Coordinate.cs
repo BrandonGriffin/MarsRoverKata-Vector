@@ -23,7 +23,20 @@ namespace MarsRoverKata
             this.y = y;
         }
 
-        public override string ToString()
+        public override Boolean Equals(Object obj)
+        {
+            if (obj is Coordinate == false)
+                return false;
+
+            var otherCoordinate = obj as Coordinate;
+
+            if (this.x != otherCoordinate.x || this.y != otherCoordinate.y)
+                return false;
+
+            return true;
+        }
+        
+        public override String ToString()
         {
             return String.Format("({0}, {1})", this.x, this.y);
         }
