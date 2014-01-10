@@ -16,9 +16,9 @@ namespace MarsRoverKata
             return position.ToString();
         }
 
-        public object Direction()
+        public String Direction()
         {
-            throw new NotImplementedException();
+            return "N";
         }
     }
 }
