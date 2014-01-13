@@ -19,7 +19,11 @@ namespace MarsRoverKata
 
         public void Move(String commands)
         {
-            CurrentPosition = new Coordinate(CurrentPosition.x, CurrentPosition.y + 1);
+            if(commands == "f")
+               CurrentPosition = new Coordinate(CurrentPosition.x, CurrentPosition.y + 1);
+
+            if (commands == "b")
+                CurrentPosition = new Coordinate(CurrentPosition.x, CurrentPosition.y - 1);
         }
     }
 }
