@@ -79,5 +79,16 @@ namespace MarsRoverKata.Tests
             rover.Move(commands);
             Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(0, 1)));
         }
+
+        [Test]
+        public void RoverShouldWrapAroundTheWorld()
+        {
+            commands.Add('r');
+            commands.Add('f');
+            commands.Add('f');
+
+            rover.Move(commands);
+            Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(0, 1)));
+        }
     }
 }
