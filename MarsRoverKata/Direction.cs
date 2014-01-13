@@ -9,8 +9,8 @@ namespace MarsRoverKata
     public enum  Direction
     {
         North, 
-        West, 
+        East, 
         South, 
-        East
+        West
     }
 }

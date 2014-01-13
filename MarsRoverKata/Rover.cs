@@ -24,6 +24,9 @@ namespace MarsRoverKata
 
             if (commands == "b")
                 CurrentPosition = new Coordinate(CurrentPosition.x, CurrentPosition.y - 1);
+
+            if (commands == "r")
+                Direction = Direction + 1;
         }
     }
 }
