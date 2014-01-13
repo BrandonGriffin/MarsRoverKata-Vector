@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarsRoverKata
 {
@@ -26,21 +23,21 @@ namespace MarsRoverKata
             {
                 if (CommandIsForward(command))
                     MoveForward();
-
-                if (CommandIsBackward(command))
+                else if (CommandIsBackward(command))
                     MoveBackward();
-
-                if (CommandIsRight(command))
+                else if (CommandIsRight(command))
                     TurnRight();
-
-                if (CommandIsLeft(command))
+                else if (CommandIsLeft(command))
                     TurnLeft();
             }
         }
 
         private void TurnLeft()
         {
-            Direction = Direction + 3;
+            if (Direction == Direction.North)
+                Direction = Direction + 3;
+            else
+                Direction = Direction - 1;
         }
 
         private void TurnRight()
@@ -75,12 +72,12 @@ namespace MarsRoverKata
         private void MoveWest()
         {
             if (IsFarWest())
-                if (IsAnObstacleAtNextPosition(new Coordinate(MaxColumn(), CurrentPosition.y)))
+                if (IsAnObstacleAtNextPosition(new Coordinate(MaxColumn(), CurrentPosition.y)) || IsObstructed == true)
                     IsObstructed = true;
                 else
                     CurrentPosition = new Coordinate(MaxColumn(), CurrentPosition.y);
             else
-                if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x - 1, CurrentPosition.y)))
+                if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x - 1, CurrentPosition.y)) || IsObstructed == true)
                     IsObstructed = true;
                 else
                     CurrentPosition = new Coordinate(CurrentPosition.x - 1, CurrentPosition.y);
@@ -94,12 +91,12 @@ namespace MarsRoverKata
         private void MoveSouth()
         {
             if (IsFarSouth())
-                if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x, MaxRow())))
+                if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x, MaxRow())) || IsObstructed == true)
                     IsObstructed = true;
                 else
                     CurrentPosition = new Coordinate(CurrentPosition.x, MaxRow());
             else
-                if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x, CurrentPosition.y - 1)))
+                if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x, CurrentPosition.y - 1)) || IsObstructed == true)
                     IsObstructed = true;
                 else    
                     CurrentPosition = new Coordinate(CurrentPosition.x, CurrentPosition.y - 1);
@@ -113,12 +110,12 @@ namespace MarsRoverKata
         private void MoveEast()
         {
             if (IsFarEast())
-                if (IsAnObstacleAtNextPosition(new Coordinate(0, CurrentPosition.y)))
+                if (IsAnObstacleAtNextPosition(new Coordinate(0, CurrentPosition.y)) || IsObstructed == true)
                     IsObstructed = true;
                 else
                     CurrentPosition = new Coordinate(0, CurrentPosition.y);
             else
-                if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x + 1, CurrentPosition.y)))
+                if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x + 1, CurrentPosition.y)) || IsObstructed == true)
                     IsObstructed = true;
                 else
                     CurrentPosition = new Coordinate(CurrentPosition.x + 1, CurrentPosition.y);
@@ -137,12 +134,12 @@ namespace MarsRoverKata
         private void MoveNorth()
         {
             if (IsFarNorth())
-                if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x, 0)))
+                if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x, 0)) || IsObstructed == true)
                     IsObstructed = true;
                 else
                     CurrentPosition = new Coordinate(CurrentPosition.x, 0);
             else
-                if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x, CurrentPosition.y + 1)))
+                if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x, CurrentPosition.y + 1)) || IsObstructed == true)
                     IsObstructed = true;
                 else
                     CurrentPosition = new Coordinate(CurrentPosition.x, CurrentPosition.y + 1);

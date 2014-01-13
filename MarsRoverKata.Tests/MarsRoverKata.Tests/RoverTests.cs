@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace MarsRoverKata.Tests
@@ -118,6 +115,16 @@ namespace MarsRoverKata.Tests
             planet.CreateObstacle(new Coordinate(2, 0));
             rover.Move(commands);
 
+            Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(1, 0)));
+        }
+
+        [Test]
+        public void RandomRoverShouldEndUpAtOneZero()
+        {
+            var input = new List<Char>{ 'f', 'f', 'r', 'f', 'f', 'f', 'l', 'b', 'r', 'r', 'f', 'f' };
+            commands.AddRange(input);
+
+            rover.Move(commands);
             Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(1, 0)));
         }
     }
