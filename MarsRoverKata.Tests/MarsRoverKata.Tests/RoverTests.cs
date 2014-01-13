@@ -43,5 +43,12 @@ namespace MarsRoverKata.Tests
             rover.Move("b");
             Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(1, 0)));
         }
+
+        [Test]
+        public void RoverCanTurnRight()
+        {
+            rover.Move("r");
+            Assert.That(rover.Direction, Is.EqualTo(Direction.East));
+        }
     }
 }
