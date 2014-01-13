@@ -27,6 +27,9 @@ namespace MarsRoverKata
 
             if (commands == "r")
                 Direction = Direction + 1;
+
+            if (commands == "l")
+                Direction = Direction + 3;
         }
     }
 }
