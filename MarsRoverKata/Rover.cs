@@ -17,19 +17,36 @@ namespace MarsRoverKata
             Direction = direction;
         }
 
-        public void Move(String commands)
+        public void Move(IEnumerable<Char> commands)
         {
-            if(commands == "f")
-               CurrentPosition = new Coordinate(CurrentPosition.x, CurrentPosition.y + 1);
+            foreach (var command in commands)
+            {
+                if (command == 'f')
+                    if (Direction == Direction.North)
+                        CurrentPosition = new Coordinate(CurrentPosition.x, CurrentPosition.y + 1);
+                    else if (Direction == Direction.East)
+                        CurrentPosition = new Coordinate(CurrentPosition.x + 1, CurrentPosition.y);
+                    else if (Direction == Direction.South)
+                        CurrentPosition = new Coordinate(CurrentPosition.x, CurrentPosition.y - 1);
+                    else
+                        CurrentPosition = new Coordinate(CurrentPosition.x - 1, CurrentPosition.y);
 
-            if (commands == "b")
-                CurrentPosition = new Coordinate(CurrentPosition.x, CurrentPosition.y - 1);
+                if (command == 'b')
+                    if (Direction == Direction.North)
+                        CurrentPosition = new Coordinate(CurrentPosition.x, CurrentPosition.y - 1);
+                    else if (Direction == Direction.East)
+                        CurrentPosition = new Coordinate(CurrentPosition.x - 1, CurrentPosition.y);
+                    else if (Direction == Direction.South)
+                        CurrentPosition = new Coordinate(CurrentPosition.x, CurrentPosition.y + 1);
+                    else
+                        CurrentPosition = new Coordinate(CurrentPosition.x + 1, CurrentPosition.y);
 
-            if (commands == "r")
-                Direction = Direction + 1;
+                if (command == 'r')
+                    Direction = Direction + 1;
 
-            if (commands == "l")
-                Direction = Direction + 3;
+                if (command == 'l')
+                    Direction = Direction + 3;
+            }
         }
     }
 }

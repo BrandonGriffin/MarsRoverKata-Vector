@@ -11,11 +11,13 @@ namespace MarsRoverKata.Tests
     public class RoverTests
     {
         private Rover rover;
+        private List<Char> commands;
 
         [SetUp]
         public void Setup()
         {
             rover = new Rover(new Coordinate(1, 1), Direction.North);
+            commands = new List<Char>();
         }
 
         [Test]
@@ -56,6 +58,26 @@ namespace MarsRoverKata.Tests
         {
             rover.Move("l");
             Assert.That(rover.Direction, Is.EqualTo(Direction.West));
+        }
+
+        [Test]
+        public void RoverCanTurnRightThenMoveForward()
+        {
+            commands.Add('r');
+            commands.Add('f');
+
+            rover.Move(commands);
+            Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(2, 1)));
+        }
+
+        [Test]
+        public void RoverCanTurnRightThenMoveBackward()
+        {
+            commands.Add('r');
+            commands.Add('b');
+
+            rover.Move(commands);
+            Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(0, 1)));
         }
     }
 }
