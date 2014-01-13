@@ -13,8 +13,13 @@ namespace MarsRoverKata
 
         public Rover(Coordinate space, Direction direction)
         {
-            this.CurrentPosition = space;
-            this.Direction = direction;
+            CurrentPosition = space;
+            Direction = direction;
+        }
+
+        public void Move(string p)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -35,10 +35,5 @@ namespace MarsRoverKata
 
             return true;
         }
-        
-        public override String ToString()
-        {
-            return String.Format("({0}, {1})", this.x, this.y);
-        }
     }
 }
