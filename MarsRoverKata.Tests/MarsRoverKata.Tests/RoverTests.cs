@@ -94,6 +94,20 @@ namespace MarsRoverKata.Tests
         }
 
         [Test]
+        public void RoverShouldThrowAnExceptionWhenItEncountersAnObstacle()
+        {
+            commands.Add('f');
+            commands.Add('f');
+            commands.Add('r');
+            commands.Add('f');
+
+            planet.CreateObstacle(new Coordinate(2, 0));
+            rover.Move(commands);
+
+            Assert.That(rover.IsObstructed, Is.EqualTo(true));
+        }
+
+        [Test]
         public void RoverShouldStopWhenItEncountersAnObstacle()
         {
             commands.Add('f');
@@ -102,8 +116,9 @@ namespace MarsRoverKata.Tests
             commands.Add('f');
 
             planet.CreateObstacle(new Coordinate(2, 0));
-            
-            Assert.Throws<ObstacleDetectedException>(() => rover.Move(commands));
+            rover.Move(commands);
+
+            Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(1, 0)));
         }
     }
 }

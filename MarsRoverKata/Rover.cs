@@ -10,6 +10,7 @@ namespace MarsRoverKata
     {
         public Coordinate CurrentPosition { get; private set; }
         public Direction Direction { get; private set; }
+        public Boolean IsObstructed { get; private set; }
         private Planet map;
 
         public Rover(Coordinate point, Direction direction, Planet planet)
@@ -75,12 +76,12 @@ namespace MarsRoverKata
         {
             if (IsFarWest())
                 if (IsAnObstacleAtNextPosition(new Coordinate(MaxColumn(), CurrentPosition.y)))
-                    throw new ObstacleDetectedException();
+                    IsObstructed = true;
                 else
                     CurrentPosition = new Coordinate(MaxColumn(), CurrentPosition.y);
             else
                 if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x - 1, CurrentPosition.y)))
-                    throw new ObstacleDetectedException();
+                    IsObstructed = true;
                 else
                     CurrentPosition = new Coordinate(CurrentPosition.x - 1, CurrentPosition.y);
         }
@@ -94,12 +95,12 @@ namespace MarsRoverKata
         {
             if (IsFarSouth())
                 if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x, MaxRow())))
-                    throw new ObstacleDetectedException();
+                    IsObstructed = true;
                 else
                     CurrentPosition = new Coordinate(CurrentPosition.x, MaxRow());
             else
                 if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x, CurrentPosition.y - 1)))
-                    throw new ObstacleDetectedException();
+                    IsObstructed = true;
                 else    
                     CurrentPosition = new Coordinate(CurrentPosition.x, CurrentPosition.y - 1);
         }
@@ -113,12 +114,12 @@ namespace MarsRoverKata
         {
             if (IsFarEast())
                 if (IsAnObstacleAtNextPosition(new Coordinate(0, CurrentPosition.y)))
-                    throw new ObstacleDetectedException();
+                    IsObstructed = true;
                 else
                     CurrentPosition = new Coordinate(0, CurrentPosition.y);
             else
                 if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x + 1, CurrentPosition.y)))
-                    throw new ObstacleDetectedException();
+                    IsObstructed = true;
                 else
                     CurrentPosition = new Coordinate(CurrentPosition.x + 1, CurrentPosition.y);
         }
@@ -137,12 +138,12 @@ namespace MarsRoverKata
         {
             if (IsFarNorth())
                 if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x, 0)))
-                    throw new ObstacleDetectedException();
+                    IsObstructed = true;
                 else
                     CurrentPosition = new Coordinate(CurrentPosition.x, 0);
             else
                 if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x, CurrentPosition.y + 1)))
-                    throw new ObstacleDetectedException();
+                    IsObstructed = true;
                 else
                     CurrentPosition = new Coordinate(CurrentPosition.x, CurrentPosition.y + 1);
         }

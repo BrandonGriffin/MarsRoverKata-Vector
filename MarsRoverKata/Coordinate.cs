@@ -23,7 +23,7 @@ namespace MarsRoverKata
             this.y = y;
         }
 
-        public override int GetHashCode()
+        public override Int32 GetHashCode()
         {
             return x.GetHashCode() ^ y.GetHashCode();
         }
@@ -42,6 +42,11 @@ namespace MarsRoverKata
                 return false;
 
             return true;
+        }
+
+        public override string ToString()
+        {
+            return String.Format("({0}, {1})", x, y);
         }
     }
 }
