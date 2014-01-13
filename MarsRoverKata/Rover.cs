@@ -8,8 +8,8 @@ namespace MarsRoverKata
 {
     public class Rover
     {
-        public Coordinate CurrentPosition { get; set; }
-        public Direction Direction { get; set; }
+        public Coordinate CurrentPosition { get; private set; }
+        public Direction Direction { get; private set; }
         private Planet map;
 
         public Rover(Coordinate point, Direction direction, Planet planet)
@@ -74,9 +74,15 @@ namespace MarsRoverKata
         private void MoveWest()
         {
             if (IsFarWest())
-                CurrentPosition = new Coordinate(MaxColumn(), CurrentPosition.y);
+                if (IsAnObstacleAtNextPosition(new Coordinate(MaxColumn(), CurrentPosition.y)))
+                    throw new ObstacleDetectedException();
+                else
+                    CurrentPosition = new Coordinate(MaxColumn(), CurrentPosition.y);
             else
-                CurrentPosition = new Coordinate(CurrentPosition.x - 1, CurrentPosition.y);
+                if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x - 1, CurrentPosition.y)))
+                    throw new ObstacleDetectedException();
+                else
+                    CurrentPosition = new Coordinate(CurrentPosition.x - 1, CurrentPosition.y);
         }
 
         private Boolean IsFarWest()
@@ -87,9 +93,15 @@ namespace MarsRoverKata
         private void MoveSouth()
         {
             if (IsFarSouth())
-                CurrentPosition = new Coordinate(CurrentPosition.x, MaxRow());
+                if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x, MaxRow())))
+                    throw new ObstacleDetectedException();
+                else
+                    CurrentPosition = new Coordinate(CurrentPosition.x, MaxRow());
             else
-                CurrentPosition = new Coordinate(CurrentPosition.x, CurrentPosition.y - 1);
+                if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x, CurrentPosition.y - 1)))
+                    throw new ObstacleDetectedException();
+                else    
+                    CurrentPosition = new Coordinate(CurrentPosition.x, CurrentPosition.y - 1);
         }
 
         private Boolean IsFarSouth()
@@ -100,9 +112,20 @@ namespace MarsRoverKata
         private void MoveEast()
         {
             if (IsFarEast())
-                CurrentPosition = new Coordinate(0, CurrentPosition.y);
+                if (IsAnObstacleAtNextPosition(new Coordinate(0, CurrentPosition.y)))
+                    throw new ObstacleDetectedException();
+                else
+                    CurrentPosition = new Coordinate(0, CurrentPosition.y);
             else
-                CurrentPosition = new Coordinate(CurrentPosition.x + 1, CurrentPosition.y);
+                if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x + 1, CurrentPosition.y)))
+                    throw new ObstacleDetectedException();
+                else
+                    CurrentPosition = new Coordinate(CurrentPosition.x + 1, CurrentPosition.y);
+        }
+
+        private Boolean IsAnObstacleAtNextPosition(Coordinate coordinate)
+        {
+            return coordinate.Equals(map.ObstaclePosition);
         }
 
         private Boolean IsFarEast()
@@ -113,9 +136,15 @@ namespace MarsRoverKata
         private void MoveNorth()
         {
             if (IsFarNorth())
-                CurrentPosition = new Coordinate(CurrentPosition.x, 0);
+                if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x, 0)))
+                    throw new ObstacleDetectedException();
+                else
+                    CurrentPosition = new Coordinate(CurrentPosition.x, 0);
             else
-                CurrentPosition = new Coordinate(CurrentPosition.x, CurrentPosition.y + 1);
+                if (IsAnObstacleAtNextPosition(new Coordinate(CurrentPosition.x, CurrentPosition.y + 1)))
+                    throw new ObstacleDetectedException();
+                else
+                    CurrentPosition = new Coordinate(CurrentPosition.x, CurrentPosition.y + 1);
         }
 
         private Boolean IsFarNorth()

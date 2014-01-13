@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Coordinate.cs" />
     <Compile Include="Direction.cs" />
+    <Compile Include="ObstacleDetectedException.cs" />
     <Compile Include="Planet.cs" />
     <Compile Include="Rover.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
