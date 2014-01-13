@@ -34,7 +34,7 @@ namespace MarsRoverKata.Tests
         public void RoverCanMoveForward()
         {
             rover.Move("f");
-            Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(2, 1)));
+            Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(1, 2)));
         }
     }
 }
