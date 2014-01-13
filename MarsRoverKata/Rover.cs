@@ -17,9 +17,9 @@ namespace MarsRoverKata
             Direction = direction;
         }
 
-        public void Move(string p)
+        public void Move(String commands)
         {
-            throw new NotImplementedException();
+            CurrentPosition = new Coordinate(CurrentPosition.x, CurrentPosition.y + 1);
         }
     }
 }
