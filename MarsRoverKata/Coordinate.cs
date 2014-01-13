@@ -23,12 +23,20 @@ namespace MarsRoverKata
             this.y = y;
         }
 
+        public override int GetHashCode()
+        {
+            return x.GetHashCode() ^ y.GetHashCode();
+        }
+
         public override Boolean Equals(Object obj)
         {
             if (obj is Coordinate == false)
                 return false;
 
             var otherCoordinate = obj as Coordinate;
+
+            if (this.GetHashCode() != otherCoordinate.GetHashCode())
+                return false;
 
             if (this.x != otherCoordinate.x || this.y != otherCoordinate.y)
                 return false;

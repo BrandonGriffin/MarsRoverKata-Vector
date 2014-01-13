@@ -10,13 +10,15 @@ namespace MarsRoverKata.Tests
     [TestFixture]
     public class RoverTests
     {
+        private Planet planet;
         private Rover rover;
         private List<Char> commands;
 
         [SetUp]
         public void Setup()
         {
-            rover = new Rover(new Coordinate(1, 1), Direction.North);
+            planet = new Planet(3, 3);
+            rover = new Rover(new Coordinate(1, 1), Direction.North, planet);
             commands = new List<Char>();
         }
 
