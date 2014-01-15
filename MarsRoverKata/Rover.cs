@@ -6,52 +6,58 @@ namespace MarsRoverKata
     public class Rover
     {
         public Coordinate CurrentPosition { get; private set; }
-        public Direction Direction { get; private set; }
+        public Int32 Rotation { get; private set; }
         public Boolean IsObstructed { get; private set; }
         private Planet map;
 
-        public Rover(Coordinate point, Direction direction, Planet planet)
+        public Rover(Coordinate point, Int32 rotation, Planet planet)
         {
             CurrentPosition = point;
-            Direction = direction;
+            Rotation = rotation;
             map = planet;
         }
 
-        public void Move(IEnumerable<Char> commands)
+        public void ProcessCommands(IEnumerable<Char> commands)
         {
             foreach (var command in commands)
-            {
-                if (CommandIsForward(command))
-                    MoveForward();
-                else if (CommandIsBackward(command))
-                    MoveBackward();
-                else if (CommandIsRight(command))
-                    TurnRight();
-                else if (CommandIsLeft(command))
-                    TurnLeft();
-            }
+                Move(command);
+        }
+
+        public void Move(Char command)
+        {
+            if (CommandIsForward(command))
+                MoveForward();
+            else if (CommandIsBackward(command))
+                MoveBackward();
+            else if (CommandIsRight(command))
+                TurnRight();
+            else if (CommandIsLeft(command))
+                TurnLeft();
         }
 
         private void TurnLeft()
         {
-            if (Direction == Direction.North)
-                Direction = Direction + 3;
+            if (Rotation == 360)
+                Rotation = 90;
             else
-                Direction = Direction - 1;
+                Rotation += 90;
         }
 
         private void TurnRight()
         {
-            Direction = Direction + 1;
+            if (Rotation == 0)
+                Rotation = 270;
+            else
+                Rotation -= 90;
         }
 
         private void MoveBackward()
         {
-            if (Direction == Direction.North)
+            if (Rotation == 90)
                 MoveSouth();
-            else if (Direction == Direction.East)
+            else if (Rotation == 0)
                 MoveWest();
-            else if (Direction == Direction.South)
+            else if (Rotation == 270)
                 MoveNorth();
             else
                 MoveEast();
@@ -59,11 +65,11 @@ namespace MarsRoverKata
 
         private void MoveForward()
         {
-            if (Direction == Direction.North)
+            if (Rotation == 90)
                 MoveNorth();
-            else if (Direction == Direction.East)
+            else if (Rotation == 0)
                 MoveEast();
-            else if (Direction == Direction.South)
+            else if (Rotation == 270)
                 MoveSouth();
             else
                 MoveWest();

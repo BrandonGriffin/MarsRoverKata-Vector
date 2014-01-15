@@ -14,7 +14,7 @@ namespace MarsRoverKata.Tests
         public void Setup()
         {
             planet = new Planet(3, 3);
-            rover = new Rover(new Coordinate(1, 1), Direction.North, planet);
+            rover = new Rover(new Coordinate(1, 1), 90, planet);
         }
 
         [Test]
@@ -26,55 +26,55 @@ namespace MarsRoverKata.Tests
         [Test]
         public void RoversDirectionIsSet()
         {
-            Assert.That(rover.Direction, Is.EqualTo(Direction.North));
+            Assert.That(rover.Rotation, Is.EqualTo(90));
         }
 
         [Test]
         public void RoverCanMoveForward()
         {
-            rover.Move("f");
+            rover.ProcessCommands("f");
             Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(1, 2)));
         }
 
         [Test]
         public void RoverCanMoveBackward()
         {
-            rover.Move("b");
+            rover.ProcessCommands("b");
             Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(1, 0)));
         }
 
         [Test]
         public void RoverCanTurnRight()
         {
-            rover.Move("r");
-            Assert.That(rover.Direction, Is.EqualTo(Direction.East));
+            rover.ProcessCommands("r");
+            Assert.That(rover.Rotation, Is.EqualTo(0));
         }
 
         [Test]
         public void RoverCanTurnLeft()
         {
-            rover.Move("l");
-            Assert.That(rover.Direction, Is.EqualTo(Direction.West));
+            rover.ProcessCommands("l");
+            Assert.That(rover.Rotation, Is.EqualTo(180));
         }
 
         [Test]
         public void RoverCanTurnRightThenMoveForward()
         {
-            rover.Move("rf");
+            rover.ProcessCommands("rf");
             Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(2, 1)));
         }
 
         [Test]
         public void RoverCanTurnRightThenMoveBackward()
         {
-            rover.Move("rb");
+            rover.ProcessCommands("rb");
             Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(0, 1)));
         }
 
         [Test]
         public void RoverShouldWrapAroundTheWorld()
         {
-            rover.Move("rff");
+            rover.ProcessCommands("rff");
             Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(0, 1)));
         }
 
@@ -82,7 +82,7 @@ namespace MarsRoverKata.Tests
         public void RoverShouldThrowAnExceptionWhenItEncountersAnObstacle()
         {
             planet.CreateObstacle(new Coordinate(2, 0));
-            rover.Move("ffrf");
+            rover.ProcessCommands("ffrf");
 
             Assert.That(rover.IsObstructed, Is.EqualTo(true));
         }
@@ -91,7 +91,7 @@ namespace MarsRoverKata.Tests
         public void RoverShouldStopWhenItEncountersAnObstacle()
         {
             planet.CreateObstacle(new Coordinate(2, 0));
-            rover.Move("ffrf");
+            rover.ProcessCommands("ffrf");
 
             Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(1, 0)));
         }
@@ -101,7 +101,7 @@ namespace MarsRoverKata.Tests
         {
             planet.CreateObstacle(new Coordinate(2, 0));
             planet.CreateObstacle(new Coordinate(1, 1));
-            rover.Move("ffrflfff");
+            rover.ProcessCommands("ffrflfff");
 
             Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(1, 0)));
         }
@@ -109,7 +109,7 @@ namespace MarsRoverKata.Tests
         [Test]
         public void RandomRoverShouldEndUpAtOneZero()
         {
-            rover.Move("ffrffflbrrff");
+            rover.ProcessCommands("ffrffflbrrff");
             Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(1, 0)));
         }
     }
