@@ -9,8 +9,8 @@ namespace MarsRoverKata
 
         public Coordinate()
         {
-            this.x = 0;
-            this.y = 0;
+            x = 0;
+            y = 0;
         }
 
         public Coordinate(Int32 x, Int32 y)
@@ -31,10 +31,10 @@ namespace MarsRoverKata
 
             var otherCoordinate = obj as Coordinate;
 
-            if (this.GetHashCode() != otherCoordinate.GetHashCode())
+            if (GetHashCode() != otherCoordinate.GetHashCode())
                 return false;
 
-            if (this.x != otherCoordinate.x || this.y != otherCoordinate.y)
+            if (x != otherCoordinate.x || y != otherCoordinate.y)
                 return false;
 
             return true;

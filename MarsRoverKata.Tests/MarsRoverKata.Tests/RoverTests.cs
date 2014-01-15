@@ -9,14 +9,12 @@ namespace MarsRoverKata.Tests
     {
         private Planet planet;
         private Rover rover;
-        private List<Char> commands;
 
         [SetUp]
         public void Setup()
         {
             planet = new Planet(3, 3);
             rover = new Rover(new Coordinate(1, 1), Direction.North, planet);
-            commands = new List<Char>();
         }
 
         [Test]
@@ -62,44 +60,29 @@ namespace MarsRoverKata.Tests
         [Test]
         public void RoverCanTurnRightThenMoveForward()
         {
-            commands.Add('r');
-            commands.Add('f');
-
-            rover.Move(commands);
+            rover.Move("rf");
             Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(2, 1)));
         }
 
         [Test]
         public void RoverCanTurnRightThenMoveBackward()
         {
-            commands.Add('r');
-            commands.Add('b');
-
-            rover.Move(commands);
+            rover.Move("rb");
             Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(0, 1)));
         }
 
         [Test]
         public void RoverShouldWrapAroundTheWorld()
         {
-            commands.Add('r');
-            commands.Add('f');
-            commands.Add('f');
-
-            rover.Move(commands);
+            rover.Move("rff");
             Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(0, 1)));
         }
 
         [Test]
         public void RoverShouldThrowAnExceptionWhenItEncountersAnObstacle()
         {
-            commands.Add('f');
-            commands.Add('f');
-            commands.Add('r');
-            commands.Add('f');
-
             planet.CreateObstacle(new Coordinate(2, 0));
-            rover.Move(commands);
+            rover.Move("ffrf");
 
             Assert.That(rover.IsObstructed, Is.EqualTo(true));
         }
@@ -107,13 +90,18 @@ namespace MarsRoverKata.Tests
         [Test]
         public void RoverShouldStopWhenItEncountersAnObstacle()
         {
-            commands.Add('f');
-            commands.Add('f');
-            commands.Add('r');
-            commands.Add('f');
-
             planet.CreateObstacle(new Coordinate(2, 0));
-            rover.Move(commands);
+            rover.Move("ffrf");
+
+            Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(1, 0)));
+        }
+
+        [Test]
+        public void RoverShouldStopWhenItEncountersTheFirstObstacle()
+        {
+            planet.CreateObstacle(new Coordinate(2, 0));
+            planet.CreateObstacle(new Coordinate(1, 1));
+            rover.Move("ffrflfff");
 
             Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(1, 0)));
         }
@@ -121,10 +109,7 @@ namespace MarsRoverKata.Tests
         [Test]
         public void RandomRoverShouldEndUpAtOneZero()
         {
-            var input = new List<Char>{ 'f', 'f', 'r', 'f', 'f', 'f', 'l', 'b', 'r', 'r', 'f', 'f' };
-            commands.AddRange(input);
-
-            rover.Move(commands);
+            rover.Move("ffrffflbrrff");
             Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(1, 0)));
         }
     }

@@ -123,7 +123,8 @@ namespace MarsRoverKata
 
         private Boolean IsAnObstacleAtNextPosition(Coordinate coordinate)
         {
-            return coordinate.Equals(map.ObstaclePosition);
+            var obstacles = map.GetObstacleLocations();       
+            return obstacles.Contains(coordinate);
         }
 
         private Boolean IsFarEast()

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MarsRoverKata
 {
@@ -6,7 +7,7 @@ namespace MarsRoverKata
     {
         public Int32 NumberOfRows { get; private set; }
         public Int32 NumberOfColumns { get; private set; }
-        public Coordinate ObstaclePosition { get; private set; }
+        private List<Coordinate> obstaclePositions = new List<Coordinate>();
 
         public Planet(Int32 rows, Int32 columns)
         {
@@ -16,7 +17,12 @@ namespace MarsRoverKata
 
         public void CreateObstacle(Coordinate location)
         {
-            ObstaclePosition = location;
+            obstaclePositions.Add(location);
+        }
+
+        public List<Coordinate> GetObstacleLocations()
+        {
+            return obstaclePositions;
         }
     }
 }
