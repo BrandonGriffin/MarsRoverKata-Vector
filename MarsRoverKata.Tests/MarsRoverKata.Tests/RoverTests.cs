@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace MarsRoverKata.Tests
 {
@@ -9,18 +7,21 @@ namespace MarsRoverKata.Tests
     {
         private Planet planet;
         private Rover rover;
+        private Controller controller;
 
         [SetUp]
         public void Setup()
         {
             planet = new Planet(3, 3);
-            rover = new Rover(new Coordinate(1, 1), 90, planet);
+            rover = new Rover(new Vector2(1, 1), 90, planet);
+            controller = new Controller(rover);
+
         }
 
         [Test]
         public void RoversCurrentPositionIsSetToStartingPosition()
         {
-            Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(1, 1)));
+            Assert.That(rover.CurrentPosition, Is.EqualTo(new Vector2(1, 1)));
         }
 
         [Test]
@@ -32,57 +33,57 @@ namespace MarsRoverKata.Tests
         [Test]
         public void RoverCanMoveForward()
         {
-            rover.ProcessCommands("f");
-            Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(1, 2)));
+            controller.ProcessCommands("f");
+            Assert.That(rover.CurrentPosition, Is.EqualTo(new Vector2(1, 2)));
         }
 
         [Test]
         public void RoverCanMoveBackward()
         {
-            rover.ProcessCommands("b");
-            Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(1, 0)));
+            controller.ProcessCommands("b");
+            Assert.That(rover.CurrentPosition, Is.EqualTo(new Vector2(1, 0)));
         }
 
         [Test]
         public void RoverCanTurnRight()
         {
-            rover.ProcessCommands("r");
+            controller.ProcessCommands("r");
             Assert.That(rover.Rotation, Is.EqualTo(0));
         }
 
         [Test]
         public void RoverCanTurnLeft()
         {
-            rover.ProcessCommands("l");
+            controller.ProcessCommands("l");
             Assert.That(rover.Rotation, Is.EqualTo(180));
         }
 
         [Test]
         public void RoverCanTurnRightThenMoveForward()
         {
-            rover.ProcessCommands("rf");
-            Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(2, 1)));
+            controller.ProcessCommands("rf");
+            Assert.That(rover.CurrentPosition, Is.EqualTo(new Vector2(2, 1)));
         }
 
         [Test]
         public void RoverCanTurnRightThenMoveBackward()
         {
-            rover.ProcessCommands("rb");
-            Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(0, 1)));
+            controller.ProcessCommands("rb");
+            Assert.That(rover.CurrentPosition, Is.EqualTo(new Vector2(0, 1)));
         }
 
         [Test]
         public void RoverShouldWrapAroundTheWorld()
         {
-            rover.ProcessCommands("rff");
-            Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(0, 1)));
+            controller.ProcessCommands("rff");
+            Assert.That(rover.CurrentPosition, Is.EqualTo(new Vector2(0, 1)));
         }
 
         [Test]
-        public void RoverShouldThrowAnExceptionWhenItEncountersAnObstacle()
+        public void RoverShouldSeeObstructions()
         {
-            planet.CreateObstacle(new Coordinate(2, 0));
-            rover.ProcessCommands("ffrf");
+            planet.CreateObstacle(new Vector2(2, 2));
+            controller.ProcessCommands("frf");
 
             Assert.That(rover.IsObstructed, Is.EqualTo(true));
         }
@@ -90,27 +91,27 @@ namespace MarsRoverKata.Tests
         [Test]
         public void RoverShouldStopWhenItEncountersAnObstacle()
         {
-            planet.CreateObstacle(new Coordinate(2, 0));
-            rover.ProcessCommands("ffrf");
+            planet.CreateObstacle(new Vector2(2, 0));
+            controller.ProcessCommands("ffrf");
 
-            Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(1, 0)));
+            Assert.That(rover.CurrentPosition, Is.EqualTo(new Vector2(1, 0)));
         }
 
         [Test]
         public void RoverShouldStopWhenItEncountersTheFirstObstacle()
         {
-            planet.CreateObstacle(new Coordinate(2, 0));
-            planet.CreateObstacle(new Coordinate(1, 1));
-            rover.ProcessCommands("ffrflfff");
+            planet.CreateObstacle(new Vector2(2, 2));
+            planet.CreateObstacle(new Vector2(1, 1));
+            controller.ProcessCommands("frflfff");
 
-            Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(1, 0)));
+            Assert.That(rover.CurrentPosition, Is.EqualTo(new Vector2(1, 2)));
         }
 
         [Test]
         public void RandomRoverShouldEndUpAtOneZero()
         {
-            rover.ProcessCommands("ffrffflbrrff");
-            Assert.That(rover.CurrentPosition, Is.EqualTo(new Coordinate(1, 0)));
+            controller.ProcessCommands("ffrffflbrrff");
+            Assert.That(rover.CurrentPosition, Is.EqualTo(new Vector2(1, 0)));
         }
     }
 }

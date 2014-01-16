@@ -7,7 +7,7 @@ namespace MarsRoverKata
     {
         public Int32 NumberOfRows { get; private set; }
         public Int32 NumberOfColumns { get; private set; }
-        private List<Coordinate> obstaclePositions = new List<Coordinate>();
+        private List<Vector2> obstaclePositions = new List<Vector2>();
 
         public Planet(Int32 rows, Int32 columns)
         {
@@ -15,12 +15,12 @@ namespace MarsRoverKata
             NumberOfColumns = columns;
         }
 
-        public void CreateObstacle(Coordinate location)
+        public void CreateObstacle(Vector2 location)
         {
             obstaclePositions.Add(location);
         }
 
-        public List<Coordinate> GetObstacleLocations()
+        public List<Vector2> GetObstacleLocations()
         {
             return obstaclePositions;
         }
