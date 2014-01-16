@@ -60,7 +60,17 @@ namespace MarsRoverKata
 
         private void UpdateDirection()
         {
-            direction = new Vector2(Convert.ToInt32(Math.Cos(Rotation * Math.PI / 180)), Convert.ToInt32(Math.Sin(Rotation * Math.PI / 180)));
+            direction = new Vector2(GetXValue(), GetYValue());
+        }
+
+        private int GetYValue()
+        {
+            return Convert.ToInt32(Math.Sin(Rotation * Math.PI / 180));
+        }
+
+        private int GetXValue()
+        {
+            return Convert.ToInt32(Math.Cos(Rotation * Math.PI / 180));
         }
 
         private Boolean IsAnObstacleAtNextPosition()
