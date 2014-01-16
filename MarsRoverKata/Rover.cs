@@ -24,7 +24,7 @@ namespace MarsRoverKata
             nextPosition = CurrentPosition + direction;
             CheckBoundaries();
 
-            if (IsAnObstacleAtNextPosition() || IsObstructed == true)
+            if (IsAnObstacleAtNextPosition())
                 IsObstructed = true;
             else           
                 CurrentPosition = nextPosition;
@@ -36,7 +36,7 @@ namespace MarsRoverKata
             nextPosition = CurrentPosition - direction;
             CheckBoundaries();
 
-            if (IsAnObstacleAtNextPosition() || IsObstructed == true)
+            if (IsAnObstacleAtNextPosition())
                 IsObstructed = true;
             else
                 CurrentPosition = nextPosition;
@@ -75,8 +75,8 @@ namespace MarsRoverKata
 
         private Boolean IsAnObstacleAtNextPosition()
         {
-            var obstacles = map.GetObstacleLocations();       
-            return obstacles.Contains(nextPosition);
+            var obstacles = map.GetObstacleLocations();
+            return obstacles.Contains(nextPosition) || IsObstructed == true;
         }
 
         private void CheckBoundaries()
