@@ -15,10 +15,10 @@ namespace MarsRoverKata
         public void ProcessCommands(IEnumerable<Char> commands)
         {
             foreach (var command in commands)
-                Move(command);
+                SendCommandToRover(command);
         }
 
-        public void Move(Char command)
+        public void SendCommandToRover(Char command)
         {
             if (CommandIsForward(command))
                 rover.MoveForward();

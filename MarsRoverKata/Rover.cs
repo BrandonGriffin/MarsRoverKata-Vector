@@ -4,7 +4,6 @@ namespace MarsRoverKata
 {
     public class Rover
     {
-        
         public Int32 Rotation { get; private set; }
         public Boolean IsObstructed { get; private set; }
         public Vector2 CurrentPosition { get; private set; }
@@ -29,7 +28,6 @@ namespace MarsRoverKata
                 IsObstructed = true;
             else           
                 CurrentPosition = nextPosition;
-
         }
 
         public void MoveBackward()
@@ -62,7 +60,7 @@ namespace MarsRoverKata
 
         private void UpdateDirection()
         {
-            direction = new Vector2(Convert.ToInt32(Math.Cos(Rotation * Math.PI/180)), Convert.ToInt32(Math.Sin(Rotation * Math.PI/180)));
+            direction = new Vector2(Convert.ToInt32(Math.Cos(Rotation * Math.PI / 180)), Convert.ToInt32(Math.Sin(Rotation * Math.PI / 180)));
         }
 
         private Boolean IsAnObstacleAtNextPosition()

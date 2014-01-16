@@ -15,7 +15,6 @@ namespace MarsRoverKata.Tests
             planet = new Planet(3, 3);
             rover = new Rover(new Vector2(1, 1), 90, planet);
             controller = new Controller(rover);
-
         }
 
         [Test]
