@@ -13,7 +13,7 @@ namespace MarsRoverKata.Tests
         public void Setup()
         {
             map = new Map(3, 3);
-            rover = new Rover(new Vector2(1, 1), 90, map);
+            rover = new Rover(new Vector2(1, 1), new Vector2(0, 1), map);
             controller = new Controller(rover);
         }
 
@@ -26,7 +26,7 @@ namespace MarsRoverKata.Tests
         [Test]
         public void RoversDirectionIsSet()
         {
-            Assert.That(rover.Rotation, Is.EqualTo(90));
+            Assert.That(rover.Direction, Is.EqualTo(new Vector2(0, 1)));
         }
 
         [Test]
@@ -47,14 +47,14 @@ namespace MarsRoverKata.Tests
         public void RoverCanTurnRight()
         {
             controller.ProcessCommands("r");
-            Assert.That(rover.Rotation, Is.EqualTo(0));
+            Assert.That(rover.Direction, Is.EqualTo(new Vector2(1, 0)));
         }
 
         [Test]
         public void RoverCanTurnLeft()
         {
             controller.ProcessCommands("l");
-            Assert.That(rover.Rotation, Is.EqualTo(180));
+            Assert.That(rover.Direction, Is.EqualTo(new Vector2(-1, 0)));
         }
 
         [Test]

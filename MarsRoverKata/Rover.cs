@@ -4,45 +4,36 @@ namespace MarsRoverKata
 {
     public class Rover
     {
-        public Int32 Rotation { get; private set; }
         public Boolean IsObstructed { get; private set; }
         public Vector2 CurrentPosition { get; private set; }
-        private Vector2 direction;
+        public Vector2 Direction { get; private set; }
         private Map map;
 
-        public Rover(Vector2 point, Int32 rotation, Map map)
+        public Rover(Vector2 point, Vector2 direction, Map map)
         {
             CurrentPosition = point;
-            Rotation = rotation;
+            Direction = direction;
             this.map = map;
         }
         
         public void MoveForward()
         {
-            UpdateDirection();
-            Move(direction);
+            Move(Direction);
         }
 
         public void MoveBackward()
         {
-            UpdateDirection();
-            Move(direction * (-1));
+            Move(Direction * (-1));
         }
 
         public void TurnLeft()
         {
-            if (Rotation == 360)
-                Rotation = 90;
-            else
-                Rotation += 90;
+            Direction = new Vector2(-Direction.Y, Direction.X);
         }
 
         public void TurnRight()
         {
-            if (Rotation == 0)
-                Rotation = 270;
-            else
-                Rotation -= 90;
+            Direction = new Vector2(Direction.Y, -Direction.X);
         }
         
         private void Move(Vector2 direction)
@@ -57,21 +48,6 @@ namespace MarsRoverKata
                 IsObstructed = true;
             else
                 CurrentPosition = nextPosition;
-        }
-
-        private void UpdateDirection()
-        {
-            direction = new Vector2(GetXValue(), GetYValue());
-        }
-
-        private Int32 GetYValue()
-        {
-            return Convert.ToInt32(Math.Sin(Rotation * Math.PI / 180));
-        }
-
-        private Int32 GetXValue()
-        {
-            return Convert.ToInt32(Math.Cos(Rotation * Math.PI / 180));
         }
     }
 }
