@@ -41,7 +41,7 @@
   <ItemGroup>
     <Compile Include="Controller.cs" />
     <Compile Include="Vector2.cs" />
-    <Compile Include="Planet.cs" />
+    <Compile Include="Map.cs" />
     <Compile Include="Rover.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

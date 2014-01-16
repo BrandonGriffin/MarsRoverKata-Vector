@@ -8,38 +8,25 @@ namespace MarsRoverKata
         public Boolean IsObstructed { get; private set; }
         public Vector2 CurrentPosition { get; private set; }
         private Vector2 direction;
-        private Vector2 nextPosition;
-        private Planet map;
+        private Map map;
 
-        public Rover(Vector2 point, Int32 rotation, Planet planet)
+        public Rover(Vector2 point, Int32 rotation, Map map)
         {
             CurrentPosition = point;
             Rotation = rotation;
-            map = planet;
+            this.map = map;
         }
         
         public void MoveForward()
         {
             UpdateDirection();
-            nextPosition = CurrentPosition + direction;
-            CheckBoundaries();
-
-            if (IsAnObstacleAtNextPosition())
-                IsObstructed = true;
-            else           
-                CurrentPosition = nextPosition;
+            Move(direction);
         }
 
         public void MoveBackward()
         {
             UpdateDirection();
-            nextPosition = CurrentPosition - direction;
-            CheckBoundaries();
-
-            if (IsAnObstacleAtNextPosition())
-                IsObstructed = true;
-            else
-                CurrentPosition = nextPosition;
+            Move(direction * (-1));
         }
 
         public void TurnLeft()
@@ -57,39 +44,34 @@ namespace MarsRoverKata
             else
                 Rotation -= 90;
         }
+        
+        private void Move(Vector2 direction)
+        {
+            if (IsObstructed)
+                return;
+
+            var nextPosition = CurrentPosition + direction;
+            nextPosition = map.CheckBoundaries(nextPosition);
+
+            if (map.IsAnObstacleAtNextPosition(nextPosition))
+                IsObstructed = true;
+            else
+                CurrentPosition = nextPosition;
+        }
 
         private void UpdateDirection()
         {
             direction = new Vector2(GetXValue(), GetYValue());
         }
 
-        private int GetYValue()
+        private Int32 GetYValue()
         {
             return Convert.ToInt32(Math.Sin(Rotation * Math.PI / 180));
         }
 
-        private int GetXValue()
+        private Int32 GetXValue()
         {
             return Convert.ToInt32(Math.Cos(Rotation * Math.PI / 180));
-        }
-
-        private Boolean IsAnObstacleAtNextPosition()
-        {
-            var obstacles = map.GetObstacleLocations();
-            return obstacles.Contains(nextPosition) || IsObstructed == true;
-        }
-
-        private void CheckBoundaries()
-        {
-            if (nextPosition.X > map.NumberOfRows - 1)
-                nextPosition.X = 0;
-            else if (nextPosition.X < 0)
-                nextPosition.X = map.NumberOfRows - 1;
-
-            if (nextPosition.Y > map.NumberOfColumns - 1)
-                nextPosition.Y = 0;
-            else if (nextPosition.Y < 0)
-                nextPosition.Y = map.NumberOfColumns - 1;
         }
     }
 }

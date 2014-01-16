@@ -5,15 +5,15 @@ namespace MarsRoverKata.Tests
     [TestFixture]
     public class RoverTests
     {
-        private Planet planet;
+        private Map map;
         private Rover rover;
         private Controller controller;
 
         [SetUp]
         public void Setup()
         {
-            planet = new Planet(3, 3);
-            rover = new Rover(new Vector2(1, 1), 90, planet);
+            map = new Map(3, 3);
+            rover = new Rover(new Vector2(1, 1), 90, map);
             controller = new Controller(rover);
         }
 
@@ -72,25 +72,9 @@ namespace MarsRoverKata.Tests
         }
 
         [Test]
-        public void RoverShouldWrapAroundTheWorld()
-        {
-            controller.ProcessCommands("rff");
-            Assert.That(rover.CurrentPosition, Is.EqualTo(new Vector2(0, 1)));
-        }
-
-        [Test]
-        public void RoverShouldSeeObstructions()
-        {
-            planet.CreateObstacle(new Vector2(2, 2));
-            controller.ProcessCommands("frf");
-
-            Assert.That(rover.IsObstructed, Is.EqualTo(true));
-        }
-
-        [Test]
         public void RoverShouldStopWhenItEncountersAnObstacle()
         {
-            planet.CreateObstacle(new Vector2(2, 0));
+            map.CreateObstacle(new Vector2(2, 0));
             controller.ProcessCommands("ffrf");
 
             Assert.That(rover.CurrentPosition, Is.EqualTo(new Vector2(1, 0)));
@@ -99,8 +83,8 @@ namespace MarsRoverKata.Tests
         [Test]
         public void RoverShouldStopWhenItEncountersTheFirstObstacle()
         {
-            planet.CreateObstacle(new Vector2(2, 2));
-            planet.CreateObstacle(new Vector2(1, 1));
+            map.CreateObstacle(new Vector2(2, 2));
+            map.CreateObstacle(new Vector2(1, 1));
             controller.ProcessCommands("frflfff");
 
             Assert.That(rover.CurrentPosition, Is.EqualTo(new Vector2(1, 2)));
