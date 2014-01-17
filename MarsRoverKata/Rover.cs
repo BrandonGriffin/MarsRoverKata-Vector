@@ -41,8 +41,7 @@ namespace MarsRoverKata
             if (IsObstructed)
                 return;
 
-            var nextPosition = CurrentPosition + direction;
-            nextPosition = map.CheckBoundaries(nextPosition);
+            var nextPosition = map.CheckBoundaries(CurrentPosition + direction);
 
             if (map.IsAnObstacleAtNextPosition(nextPosition))
                 IsObstructed = true;
