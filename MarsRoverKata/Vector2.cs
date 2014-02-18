@@ -15,8 +15,8 @@ namespace MarsRoverKata
 
         public Vector2(Double x, Double y)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
         }
 
         public override Int32 GetHashCode()

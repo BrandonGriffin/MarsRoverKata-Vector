@@ -4,9 +4,10 @@ namespace MarsRoverKata
 {
     public class Rover
     {
-        public Boolean IsObstructed { get; private set; }
         public Vector2 CurrentPosition { get; private set; }
         public Vector2 Direction { get; private set; }
+
+        private Boolean isObstructed;
         private Map map;
 
         public Rover(Vector2 point, Vector2 direction, Map map)
@@ -38,13 +39,13 @@ namespace MarsRoverKata
         
         private void Move(Vector2 direction)
         {
-            if (IsObstructed)
+            if (isObstructed)
                 return;
 
             var nextPosition = map.CheckBoundaries(CurrentPosition + direction);
 
             if (map.IsAnObstacleAtNextPosition(nextPosition))
-                IsObstructed = true;
+                isObstructed = true;
             else
                 CurrentPosition = nextPosition;
         }

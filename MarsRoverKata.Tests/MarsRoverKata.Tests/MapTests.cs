@@ -14,12 +14,6 @@ namespace MarsRoverKata.Tests
         }
 
         [Test]
-        public void WhatTestsDoINeed()
-        {
-            Assert.Fail();
-        }
-
-        [Test]
         public void MapShouldWrapAtTheBottom()
         {
             var actual = map.CheckBoundaries(new Vector2(3, 1));
